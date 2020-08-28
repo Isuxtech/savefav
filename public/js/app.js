@@ -40208,7 +40208,7 @@ var render = function() {
             "a",
             {
               staticClass: "content-wrapper",
-              attrs: { href: "www.hello world.com", _target: "blank" }
+              attrs: { href: _vm.linkInfo.url, target: "_blank" }
             },
             [_vm._v(_vm._s(_vm.linkInfo.url))]
           )
