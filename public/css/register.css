@@ -27,6 +27,13 @@ body {
   width: 30%;
 }
 
+@media (max-width: 440px) {
+  .register-wrapper {
+    margin-top: 10vh;
+    width: 99%;
+  }
+}
+
 .register-form {
   width: 100%;
   display: grid;
