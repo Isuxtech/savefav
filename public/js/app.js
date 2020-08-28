@@ -3294,14 +3294,14 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (resolve) {
-        console.log(resolve.data);
         _this.accessToken = resolve.data.accessToken;
 
-        if (!localStorage.getItem('accessToken')) {
-          localStorage.setItem('accessToken', _this.accessToken);
+        if (localStorage.getItem('accessToken')) {
+          localStorage.removeItem('accessToken');
         }
 
-        location.href = "/";
+        localStorage.setItem('accessToken', _this.accessToken);
+        location.href = "/dashboard";
       })["catch"](function (err) {
         console.log(err);
         _this.myErrors = err.data.errors;

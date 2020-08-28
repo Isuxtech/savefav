@@ -41,7 +41,6 @@ class registerController extends Controller
 
 
         return response()->json([
-            'user'=>$users,
             'accessToken' => $accessToken
         ], 200);
     }

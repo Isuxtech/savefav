@@ -54,12 +54,12 @@
                     password:this.password,
                 })
                 .then(resolve=>{
-                    console.log( resolve.data);
-                    this.accessToken = resolve.data.accessToken
-                    if(!localStorage.getItem('accessToken')){
-                        localStorage.setItem('accessToken', this.accessToken);
+                    this.accessToken = resolve.data.accessToken;
+                    if(localStorage.getItem('accessToken') ){
+                        localStorage.removeItem('accessToken');
                     }
-                    location.href="/";
+                    localStorage.setItem('accessToken', this.accessToken);
+                    location.href="/dashboard";
                 })
                 .catch(err=>{
                     console.log(err)
