@@ -15,8 +15,7 @@ class AddedCategoryAccessTypeToSite extends Migration
     {
         Schema::table('sites', function (Blueprint $table) {
             $table->bigInteger('category')->default(1)->after('title');
-        });
-    }
+        });    }
 
     /**
      * Reverse the migrations.
