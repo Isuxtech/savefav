@@ -1,0 +1,24 @@
+// Body
+$bg-color: #636b6f;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+
+
+*{
+    box-sizing: border-box;
+    text-decoration: none;
+    padding:0;
+    margin:0;
+}
+body {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    margin: 0;
+    background-color: rgba(1, 18, 40, 0.87);
+}
+

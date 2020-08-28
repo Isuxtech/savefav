@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-weight: 200;
+  margin: 0;
+  background-color: rgba(1, 18, 40, 0.87);
+}
+
+.container {
+  width: 100%;
+  display: grid;
+}
+
+.register-wrapper {
+  display: grid;
+  margin: auto;
+  margin-top: 20vh;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 0px gray;
+  padding: 20px;
+  width: 30%;
+}
+
+.register-form {
+  width: 100%;
+  display: grid;
+  background-color: transparent;
+  margin-bottom: 30px;
+}
+
+.access-title {
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  color: #106ee0;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  line-height: 1;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-controls {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+label {
+  color: #055dc9;
+  font-weight: 600;
+}
+
+.form-controls:active,
+.form-controls:focus {
+  border: 1px solid #1959a8;
+  font-size: 1rem;
+}
+
+.form-controls::-moz-placeholder {
+  color: #1959a8;
+}
+
+.form-controls:-ms-input-placeholder {
+  color: #1959a8;
+}
+
+.form-controls::-ms-input-placeholder {
+  color: #1959a8;
+}
+
+.form-controls::placeholder {
+  color: #1959a8;
+}
+
+.btn-register {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  padding: 10px 20px;
+  background-image: linear-gradient(40deg, #058db6, #1959a8);
+  color: white;
+  border: transparent;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-register:hover > .btn-register--effect {
+  color: #1959a8;
+}
+
+.btn-register:hover {
+  -webkit-animation: loginAnimation 5s linear 0s infinite;
+          animation: loginAnimation 5s linear 0s infinite;
+}
+
+@-webkit-keyframes loginAnimation {
+  0% {
+    background-color: green;
+    background-position: right;
+  }
+
+  50% {
+    background-color: yellow;
+    background-position: 50px;
+  }
+}
+
+@keyframes loginAnimation {
+  0% {
+    background-color: green;
+    background-position: right;
+  }
+
+  50% {
+    background-color: yellow;
+    background-position: 50px;
+  }
+}
+
+.useful-link {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  grid-gap: 10px;
+  justify-content: space-around;
+  font-size: 0.8rem;
+  box-shadow: inset 0px 0px 5px 0px rgba(128, 128, 128, 0.76);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.useful-link a {
+  color: #1959a8;
+}
+
+.login-link {
+  color: #1959a8;
+  font-weight: lighter;
+}
+
+.login-link-a {
+  font-weight: normal;
+  cursor: pointer;
+  color: #0249a1;
+  text-decoration: underline;
+}
+
