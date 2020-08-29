@@ -2,7 +2,7 @@
    <section>
        <div class="wrapper">
            <div class="wrapper-links" v-for="links in linkContent">
-               <a :href="`/links/${links.id}`"class="link-title link-text" v-text="links.title" @click.prevent="activeLinkID" :data-link="links.id"></a>
+               <a href="" class="link-title link-text" v-text="links.title" @click.prevent="activeLinkID" :data-link="links.id"></a>
                <div class="description-wrapper">
                    <p class="link-content" v-text="links.description"></p>
                </div>

@@ -39957,7 +39957,7 @@ var render = function() {
           return _c("div", { staticClass: "wrapper-links" }, [
             _c("a", {
               staticClass: "link-title link-text",
-              attrs: { href: "/links/" + links.id, "data-link": links.id },
+              attrs: { href: "", "data-link": links.id },
               domProps: { textContent: _vm._s(links.title) },
               on: {
                 click: function($event) {
@@ -40258,25 +40258,8 @@ var render = function() {
       _c("div", { staticClass: "side-menu" }, [
         _vm._m(0),
         _vm._v(" "),
-        _vm.logedIn
-          ? _c(
-              "a",
-              {
-                staticClass: "icon-wrapper remove",
-                attrs: { href: "/" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.deleteLink($event)
-                  }
-                }
-              },
-              [
-                _c("span", { staticClass: "add-icon" }, [_vm._v("-")]),
-                _vm._v(" "),
-                _c("strong", { staticClass: "add-text" }, [_vm._v("Del")])
-              ]
-            )
+        false
+          ? undefined
           : _vm._e()
       ])
     ])
@@ -40323,9 +40306,7 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "navbar" }, [
-      _c("a", { staticClass: "navlink", attrs: { href: "/create" } }, [
-        _vm._v(" Add New |")
-      ]),
+      _vm._m(1),
       _vm._v(" "),
       _vm.accessToken && !_vm.show_public_post
         ? _c(
@@ -40406,6 +40387,15 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "hamburger-wrapper" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "navlink", attrs: { href: "/create" } }, [
+      _c("span", { staticStyle: { "font-size": "1.4rem" } }, [_vm._v("+")]),
+      _vm._v(" |")
     ])
   }
 ]

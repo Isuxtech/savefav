@@ -37,7 +37,7 @@
                        <span class="add-icon">+</span>
                        <strong class="add-text">New</strong>
                    </a>
-                   <a href="/" class="icon-wrapper remove" @click.prevent="deleteLink" v-if="logedIn">
+                   <a href="/" class="icon-wrapper remove" @click.prevent="deleteLink" v-if="false">
                        <span class="add-icon">-</span>
                        <strong class="add-text">Del</strong>
                    </a>

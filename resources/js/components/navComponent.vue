@@ -8,7 +8,7 @@
         </div>
         <div class="navbar">
 <!--            <a href="" class="navlink">About</a>-->
-            <a href="/create" class="navlink"> Add New |</a>
+            <a href="/create" class="navlink"> <span style="font-size:1.4rem">+</span> |</a>
             <a href="" class="navlink" v-if="accessToken && !show_public_post" @click="showPublicPosts"> General Posts |</a>
             <a href="" class="navlink" v-if="accessToken && show_public_post" @click="hidePublicPosts"> My Posts |</a>
 
