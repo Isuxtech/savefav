@@ -2037,7 +2037,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       active_link_id: null,
       linkContent: {},
-      show_modal: false
+      show_modal: false,
+      publisher: null
     };
   },
   computed: {
@@ -2051,8 +2052,8 @@ __webpack_require__.r(__webpack_exports__);
           'Accept': 'Application/json'
         }
       }).then(function (resolve) {
-        _this.linkContent = resolve.data;
-        console.log(_this.linkContent);
+        _this.linkContent = resolve.data.savedlink;
+        _this.publisher = resolve.data.publisher;
         /***
          * the map is used to add the 3 dots at the end of the description
          * it loops through the entire result, selects 100 character and adds the ... at the end
@@ -2068,7 +2069,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get('../api/publicPosts').then(function (resolve) {
-        _this2.linkContent = resolve.data;
+        _this2.linkContent = resolve.data.savedlink;
+        _this2.publisher = resolve.data.publisher;
         /***
          * the map is used to add the 3 dots at the end of the description
          * it loops through the entire result, selects 100 character and adds the ... at the end
@@ -2165,7 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
       password: null,
       accessToken: null,
       myErrors: {},
-      loginError: false
+      credentialError: null
     };
   },
   methods: {
@@ -2176,20 +2178,20 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (resolve) {
-        if (resolve.data.error) {
-          _this.loginError = true;
-        } else {
-          _this.accessToken = resolve.data.accessToken;
+        _this.accessToken = resolve.data.accessToken;
 
-          if (localStorage.getItem('accessToken')) {
-            localStorage.removeItem('accessToken');
-          }
-
-          localStorage.setItem('accessToken', _this.accessToken);
-          location.href = "/dashboard";
+        if (localStorage.getItem('accessToken')) {
+          localStorage.removeItem('accessToken');
         }
+
+        localStorage.setItem('accessToken', _this.accessToken);
+        location.href = "/dashboard";
       })["catch"](function (err) {
-        console.log(err.response); // this.myErrors = err.response.data.errors;
+        if (err.response.status == 400) {
+          _this.credentialError = err.response.data.error;
+        } else {
+          _this.myErrors = err.response.data.errors;
+        }
       });
     }
   }
@@ -2255,13 +2257,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['link_id'],
+  props: ['link_id', 'publisher'],
   data: function data() {
     return {
+      logedIn: null,
+      show_btn_delete: false,
       linkInfo: {
         category: []
-      },
-      logedIn: null
+      }
     };
   },
   methods: {
@@ -2288,6 +2291,16 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+
+    /***
+     * @return boolean
+     * only works you my posts and not general
+     * compares the user_id and the publisher id and return true
+     * which helps to display the delete button
+     */
+    showBtnDelete: function showBtnDelete() {
+      return this.publisher == this.linkInfo.user_id;
     }
   },
   mounted: function mounted() {
@@ -2310,6 +2323,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios_request.then(function (resolve) {
       _this.linkInfo = resolve.data;
+      _this.show_btn_delete = _this.showBtnDelete();
     })["catch"](function (err) {
       console.log(err);
     });
@@ -39989,7 +40003,7 @@ var render = function() {
       _vm._v(" "),
       _vm.show_modal
         ? _c("detailsModal", {
-            attrs: { link_id: _vm.active_link_id },
+            attrs: { link_id: _vm.active_link_id, publisher: _vm.publisher },
             on: { "modal:close": _vm.showModal }
           })
         : _vm._e()
@@ -40022,10 +40036,10 @@ var render = function() {
   return _c("div", { staticClass: "register-wrapper" }, [
     _c("h3", { staticClass: "access-title" }, [_vm._v("Login")]),
     _vm._v(" "),
-    _vm.loginError
+    _vm.credentialError
       ? _c("h3", {
           class: "invalid-credentials",
-          domProps: { textContent: _vm._s("Incorrect Credentials") }
+          domProps: { textContent: _vm._s(_vm.credentialError) }
         })
       : _vm._e(),
     _vm._v(" "),
@@ -40258,9 +40272,32 @@ var render = function() {
       _c("div", { staticClass: "side-menu" }, [
         _vm._m(0),
         _vm._v(" "),
-        false
-          ? undefined
-          : _vm._e()
+        _c(
+          "a",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.show_btn_delete,
+                expression: "show_btn_delete"
+              }
+            ],
+            staticClass: "icon-wrapper remove",
+            attrs: { href: "/" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.deleteLink($event)
+              }
+            }
+          },
+          [
+            _c("span", { staticClass: "add-icon" }, [_vm._v("-")]),
+            _vm._v(" "),
+            _c("strong", { staticClass: "add-text" }, [_vm._v("Del")])
+          ]
+        )
       ])
     ])
   ])

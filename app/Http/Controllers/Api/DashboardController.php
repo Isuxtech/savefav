@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Site;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\DocBlock\Description;
 
 class DashboardController extends Controller
@@ -14,29 +15,39 @@ class DashboardController extends Controller
     public function index(Request $request){
         $userID = $request->user()->id;
         $sites = Site::orderBy('created_at', 'desc')->where('user_id',$userID)
+            ->with('user')
             ->with(['category'=>function($query){
                 $query->select('cat_id','category_name');
             }])
             ->get();
-        return $sites;
+        return response(['savedlink'=>$sites,'publisher'=>$userID]) ;
     }
 
+    /***
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     *
+     * the publisher returns a null because the user is never logged in in this route
+     */
     public function publicPost(Request $request){
-        $sites = Site::where('access_type','1')
+        $sites = Site::orderBY('created_at', 'desc')
+            ->where('access_type','1')
             ->with(['category'=>function($query){
                 $query->select('cat_id','category_name');
             }])
-//            ->orderBY('created_at', desc)
             ->get();
-        return $sites;
+        return response(['savedlink'=>$sites,'publisher'=>null]);
     }
 
     public function show($id){
-        $sites = Site::where('id',$id)->with('category')->first();
+        $sites = Site::where('id',$id)
+            ->with('category')
+            ->first();
         return $sites;
     }
     public function showPublic($id){
-        $sites = Site::where('id',$id)->with(['category'=>function($query){
+        $sites = Site::where('id',$id)
+            ->with(['category'=>function($query){
             $query->select('cat_id','category_name')->first();
         }])->first();
         return $sites;
@@ -52,12 +63,14 @@ class DashboardController extends Controller
             'access_type' => ['required','integer'],
         ]);
 
+        $linkUrl = !Str::of($request->input('url'))
+            ->startsWith('http') ? Str::of($request->input('url'))->prepend('https://') : $request->input('url') ;
         try{
             $newSite = new Site();
             $newSite->user_id = 0;
             $newSite->title = $request->input('title');
             $newSite->category = $request->input('category');
-            $newSite->url = $request->input('url');
+            $newSite->url = $linkUrl;
             $newSite->access_type = $request->input('access_type');
             $newSite->description = $request->input('description');
             $newSite->save();
@@ -78,12 +91,14 @@ class DashboardController extends Controller
             'access_type' => ['required','integer'],
         ]);
 
+        $linkUrl = Str::of($request->input('url'))
+            ->startsWith('http') ? Str::of($request->input('url'))->prepend('https://') : $request->input('url') ;
         try{
             $newSite = new Site();
             $newSite->user_id = $request->user()->id;
             $newSite->title = $request->input('title');
             $newSite->category = $request->input('category');
-            $newSite->url = $request->input('url');
+            $newSite->url = $linkUrl;
             $newSite->access_type = $request->input('access_type');
             $newSite->description = $request->input('description');
             $newSite->save();

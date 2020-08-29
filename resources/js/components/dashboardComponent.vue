@@ -9,7 +9,7 @@
                <span class="fixed-cat"> Category: <a :href="`/category/${links.category.cat_id}`" v-text="links.category.category_name" class="link"></a></span>
            </div>
        </div>
-       <detailsModal v-bind:link_id="active_link_id" v-if="show_modal" @modal:close="showModal"></detailsModal>
+       <detailsModal v-bind:link_id="active_link_id" v-if="show_modal" @modal:close="showModal" v-bind:publisher="publisher"></detailsModal>
    </section>
 </template>
 
@@ -21,7 +21,8 @@
             return{
                 active_link_id:null,
                 linkContent:{},
-                show_modal: false
+                show_modal: false,
+                publisher:null
             }
         },
         computed:{
@@ -37,8 +38,8 @@
                     }
                 )
                 .then(resolve =>{
-                    this.linkContent = resolve.data;
-                    console.log(this.linkContent)
+                    this.linkContent = resolve.data.savedlink;
+                    this.publisher = resolve.data.publisher;
                     /***
                      * the map is used to add the 3 dots at the end of the description
                      * it loops through the entire result, selects 100 character and adds the ... at the end
@@ -54,7 +55,8 @@
             getPublic(){
                 axios.get('../api/publicPosts')
                     .then(resolve =>{
-                        this.linkContent = resolve.data;
+                        this.linkContent = resolve.data.savedlink;
+                        this.publisher = resolve.data.publisher;
                         /***
                          * the map is used to add the 3 dots at the end of the description
                          * it loops through the entire result, selects 100 character and adds the ... at the end

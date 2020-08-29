@@ -37,7 +37,7 @@
                        <span class="add-icon">+</span>
                        <strong class="add-text">New</strong>
                    </a>
-                   <a href="/" class="icon-wrapper remove" @click.prevent="deleteLink" v-if="false">
+                   <a href="/" class="icon-wrapper remove" @click.prevent="deleteLink" v-show="show_btn_delete">
                        <span class="add-icon">-</span>
                        <strong class="add-text">Del</strong>
                    </a>
@@ -48,14 +48,16 @@
 
 <script>
     export default{
-        props:['link_id'],
+        props:['link_id','publisher'],
 
         data(){
             return{
+                logedIn:null,
+                show_btn_delete:false,
              linkInfo:{
                  category:[]
              },
-                logedIn:null
+
             }
         },
         methods:{
@@ -86,9 +88,20 @@
                         console.log(err)
                     })
 
+            },
+
+            /***
+             * @return boolean
+             * only works you my posts and not general
+             * compares the user_id and the publisher id and return true
+             * which helps to display the delete button
+             */
+            showBtnDelete(){
+                return this.publisher == this.linkInfo.user_id
             }
         },
         mounted() {
+
             this.logedIn = localStorage.getItem('accessToken')
             let axios_request;
             if(localStorage.getItem('accessToken')){
@@ -107,6 +120,8 @@
             }
             axios_request.then(resolve =>{
                     this.linkInfo = resolve.data;
+
+                this.show_btn_delete = this.showBtnDelete()
                 })
                 .catch(err =>{
                     console.log(err)

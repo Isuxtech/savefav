@@ -1,7 +1,7 @@
 <template>
     <div class="register-wrapper">
         <h3 class="access-title">Login</h3>
-        <h3 v-if="loginError" v-text="`Incorrect Credentials`" :class="`invalid-credentials`"></h3>
+        <h3 v-if="credentialError" v-text="credentialError" :class="`invalid-credentials`"></h3>
         <form class="register-form" autocomplete="off" @submit.prevent="loginUser">
             <input type="hidden" name="_token" :value="csrf">
 
@@ -52,7 +52,7 @@
                 password:null,
                 accessToken : null,
                 myErrors:{},
-                loginError:false,
+                credentialError:null,
             }
         },
         methods:{
@@ -62,21 +62,20 @@
                     password:this.password,
                 })
                     .then(resolve=>{
-                        if(resolve.data.error){
-                            this.loginError = true
-                        }else{
                             this.accessToken = resolve.data.accessToken;
                             if(localStorage.getItem('accessToken') ){
                                 localStorage.removeItem('accessToken');
                             }
                             localStorage.setItem('accessToken', this.accessToken);
                             location.href="/dashboard";
-                        }
-
                     })
                     .catch(err=>{
-                        console.log(err.response)
-                        // this.myErrors = err.response.data.errors;
+                        if(err.response.status ==400){
+                            this.credentialError = err.response.data.error;
+
+                        }else{
+                            this.myErrors = err.response.data.errors;
+                        }
                     })
             }
         },

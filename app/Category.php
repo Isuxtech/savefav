@@ -8,6 +8,6 @@ class Category extends Model
 {
     protected $table='category';
     public function site(){
-       return  $this->belongsTo('App\Site::class','category','cat_id');
+       return  $this->belongsTo(Site::class,'category','cat_id');
     }
 }

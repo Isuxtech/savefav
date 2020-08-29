@@ -29,7 +29,7 @@ class loginController extends Controller
             return response(['accessToken' =>$accessToken]);
         }
 
-        return response()->json(['error'=>'cannot login']);
+        return response()->json(['error'=>'Incorrect username/password'],400);
 
     }
 
