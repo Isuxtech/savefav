@@ -24,7 +24,7 @@
 
         <div class="useful-link">
             <a href="">About</a>
-            <a href="">Contact</a>
+            <a href="/">Home</a>
         </div>
     </div>
 </template>

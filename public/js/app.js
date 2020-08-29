@@ -40161,7 +40161,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "useful-link" }, [
       _c("a", { attrs: { href: "" } }, [_vm._v("About")]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [_vm._v("Contact")])
+      _c("a", { attrs: { href: "/" } }, [_vm._v("Home")])
     ])
   }
 ]
@@ -40394,7 +40394,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "navlink", attrs: { href: "/create" } }, [
-      _c("span", { staticStyle: { "font-size": "1.4rem" } }, [_vm._v("+")]),
+      _c("span", { staticStyle: { "font-size": "1.6rem" } }, [_vm._v("+  ")]),
       _vm._v(" |")
     ])
   }
@@ -41839,7 +41839,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "useful-link" }, [
       _c("a", { attrs: { href: "" } }, [_vm._v("About")]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [_vm._v("Contact")])
+      _c("a", { attrs: { href: "/" } }, [_vm._v("Home")])
     ])
   }
 ]
