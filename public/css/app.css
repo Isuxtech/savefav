@@ -44,6 +44,8 @@ nav {
 .navlink {
   color: white;
   font-weight: 600;
+  display: grid;
+  align-items: center;
 }
 
 .container {
