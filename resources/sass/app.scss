@@ -19,6 +19,8 @@ nav{
     display:grid;
     grid-template-columns: repeat(4, max-content);
     grid-gap:10px;
+    display: grid;
+    align-items: center;
 
     @media (min-width: 440px){
         margin-right:30px;
@@ -27,8 +29,7 @@ nav{
 .navlink{
     color:white;
     font-weight: 600;
-    display: grid;
-    align-items: center;
+
 }
 
 .container{
