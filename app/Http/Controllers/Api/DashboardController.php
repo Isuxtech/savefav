@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $userID = $request->user()->id;
         $sites = Site::orderBy('created_at', 'desc')->where('user_id',$userID)
             ->with(['category'=>function($query){
-                $query->select('cat_id','category_name')->first();
+                $query->select('cat_id','category_name');
             }])
             ->get();
         return $sites;
@@ -24,7 +24,7 @@ class DashboardController extends Controller
     public function publicPost(Request $request){
         $sites = Site::where('access_type','1')
             ->with(['category'=>function($query){
-                $query->select('cat_id','category_name')->first();
+                $query->select('cat_id','category_name');
             }])
 //            ->orderBY('created_at', desc)
             ->get();
