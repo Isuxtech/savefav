@@ -45,7 +45,7 @@
                      * it loops through the entire result, selects 100 character and adds the ... at the end
                      */
                      this.linkContent.map(currentValue=>{
-                         currentValue.description  = `${currentValue.description.substring(1,120).trim()} ...`;
+                         currentValue.description  = `${currentValue.description.substring(0,120).trim()} ...`;
                     })
                 })
                 .catch(err=>{
@@ -62,7 +62,7 @@
                          * it loops through the entire result, selects 100 character and adds the ... at the end
                          */
                         this.linkContent.map(currentValue=>{
-                            currentValue.description  = `${currentValue.description.substring(1,120).trim()} ...`;
+                            currentValue.description  = `${currentValue.description.substring(0,120).trim()} ...`;
                         })
                     })
              }

@@ -2060,7 +2060,7 @@ __webpack_require__.r(__webpack_exports__);
          */
 
         _this.linkContent.map(function (currentValue) {
-          currentValue.description = "".concat(currentValue.description.substring(1, 120).trim(), " ...");
+          currentValue.description = "".concat(currentValue.description.substring(0, 120).trim(), " ...");
         });
       })["catch"](function (err) {// implement a catch block here
       });
@@ -2077,7 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
          */
 
         _this2.linkContent.map(function (currentValue) {
-          currentValue.description = "".concat(currentValue.description.substring(1, 120).trim(), " ...");
+          currentValue.description = "".concat(currentValue.description.substring(0, 120).trim(), " ...");
         });
       });
     }
