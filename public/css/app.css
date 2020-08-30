@@ -14,17 +14,22 @@ body {
 nav {
   background-color: #023e71;
   color: white;
-  padding: 20px;
+  padding: 15px 5px;
   display: grid;
   grid-template-columns: repeat(2, -webkit-max-content);
   grid-template-columns: repeat(2, max-content);
+  grid-auto-flow: row;
+  grid-gap: 10px;
   justify-content: space-between;
   align-items: center;
 }
 
 @media (min-width: 440px) {
   nav {
+    padding: 20px;
     margin-top: 20px;
+    grid-template-columns: -webkit-max-content 1fr -webkit-max-content;
+    grid-template-columns: max-content 1fr max-content;
   }
 }
 
@@ -46,6 +51,100 @@ nav {
   font-weight: 600;
   display: flex;
   align-items: center;
+}
+
+.brand {
+  display: grid;
+  grid-template-columns: repeat(2, -webkit-max-content);
+  grid-template-columns: repeat(2, max-content);
+  grid-gap: 20px;
+  align-items: center;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.logo {
+  grid-column: 2/3;
+}
+
+.hamburger-wrapper {
+  display: grid;
+  width: 30px;
+  height: auto;
+  grid-gap: 5px;
+  justify-items: center;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  cursor: pointer;
+}
+
+@media (min-width: 440px) {
+  .hamburger-wrapper {
+    display: none;
+  }
+}
+
+.hamburger {
+  background-color: white;
+  width: 100%;
+  padding: 2px;
+}
+
+.search-form {
+  background-color: rgba(2, 25, 45, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+@media (max-width: 440px) {
+  .search-form {
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    width: 100%;
+    background-color: unset;
+  }
+}
+
+@media (min-width: 442px) {
+  .search-form {
+    width: 60%;
+    margin: auto;
+    align-self: center;
+    grid-row: 1/2;
+  }
+}
+
+.search-group {
+  display: grid;
+  grid-template-columns: 1fr -webkit-max-content;
+  grid-template-columns: 1fr max-content;
+}
+
+.search-group * {
+  border: transparent;
+}
+
+.search-controls {
+  width: 100%;
+  padding: 5px 10px;
+}
+
+@media (max-width: 440px) {
+  .search-controls {
+    border-radius: 5px 0px 0px 5px;
+  }
+}
+
+.btn-search {
+  padding: 10px;
+  font-size: 0.9rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-search:hover {
+  color: rgba(2, 25, 45, 0.5);
 }
 
 .container {

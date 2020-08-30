@@ -2363,6 +2363,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -40342,8 +40352,10 @@ var render = function() {
   return _c("nav", [
     _vm._m(0),
     _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
     _c("div", { staticClass: "navbar" }, [
-      _vm._m(1),
+      _vm._m(2),
       _vm._v(" "),
       _vm.accessToken && !_vm.show_public_post
         ? _c(
@@ -40383,7 +40395,7 @@ var render = function() {
           staticClass: "navlink",
           attrs: { href: "/login" }
         },
-        [_vm._v("Login")]
+        [_vm._v("Login ")]
       ),
       _vm._v(" "),
       _c(
@@ -40417,14 +40429,43 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "brand" }, [
-      _c("h2", [
+      _c("h2", { staticClass: "logo" }, [
         _c("a", { staticStyle: { color: "white" }, attrs: { href: "/" } }, [
           _vm._v("SaveFav")
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "hamburger-wrapper" })
+      _c("div", { staticClass: "hamburger-wrapper" }, [
+        _c("div", { staticClass: "hamburger" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "hamburger" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "hamburger" })
+      ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      { staticClass: "search-form", attrs: { action: "/", method: "GET" } },
+      [
+        _c("div", { staticClass: "search-group" }, [
+          _c("input", {
+            staticClass: "search-controls",
+            attrs: { type: "search", name: "search" }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn-search", attrs: { type: "submit" } },
+            [_vm._v("Search")]
+          )
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
