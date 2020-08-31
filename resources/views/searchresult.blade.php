@@ -14,11 +14,11 @@
 
 </head>
 <body >
-        <div class="container" id="app">
-            <nav-component></nav-component>
-            <main class="container-full">
-               <dashboard-component></dashboard-component>
-            </main>
-        </div>
+<div class="container" id="app">
+    <nav-component></nav-component>
+    <main class="container-full">
+        <result-component result="{{$result}}"></result-component>
+    </main>
+</div>
 </body>
 </html>

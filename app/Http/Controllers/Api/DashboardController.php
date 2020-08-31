@@ -19,7 +19,7 @@ class DashboardController extends Controller
             ->with(['category'=>function($query){
                 $query->select('cat_id','category_name');
             }])
-            ->get();
+            ->paginate(20);
         return response(['savedlink'=>$sites,'publisher'=>$userID]) ;
     }
 
@@ -35,9 +35,37 @@ class DashboardController extends Controller
             ->with(['category'=>function($query){
                 $query->select('cat_id','category_name');
             }])
-            ->get();
+            ->paginate(20);
         return response(['savedlink'=>$sites,'publisher'=>null]);
     }
+
+
+
+    public function searchIndex(Request $request){
+
+       $this->validate($request,[
+            'searchquery'=> ['required','min:2']
+        ]);
+//        return $request;
+
+        $resultString = $request->input('searchquery');// the search string send from the browser
+        $userID = $request->user()->id ?? null;
+        $sites = null;
+        if($userID){
+            $sites = Site::Search($resultString)
+                ->where(function($query) {
+                    $query->where('access_type', '1') // get all public links
+                    ->orWhere(function ($query) {
+                        $query->where('access_type', '0')->where('user_id', 2); // get a private links that has a user_id of the userID
+                    });
+                    })->get();
+
+        }else{
+                $sites = Site::Search($resultString)->where('access_type','1')->get();
+        }
+        return response(['result'=>$sites,'publisher'=>$userID ?? null,'postsCount'=>$sites->count()]) ;
+    }
+
 
     public function show($id){
         $sites = Site::where('id',$id)

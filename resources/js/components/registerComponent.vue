@@ -5,17 +5,17 @@
             <input type="hidden" name="_token" :value="csrf">
             <div class="form-group">
                 <label for="fullname">Fullname</label>
-                <input type="name" name="fullname" class="form-controls" v-model="fullname">
+                <input type="name" name="fullname" class="form-controls" v-model="fullname" required>
                 <span v-if="myErrors.fullname" v-text="myErrors.fullname" :class="`is-invalid`"></span>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" name="email" placeholder="james@gmail.com" class="form-controls" v-model="email">
+                <input type="text" name="email" placeholder="james@gmail.com" class="form-controls" v-model="email" required>
                 <span v-if="myErrors.email" v-text="myErrors.email" :class="`is-invalid`"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="" class="form-controls" v-model="password">
+                <input type="password" name="password" placeholder="" class="form-controls" v-model="password" required>
                 <span v-if="myErrors.password" v-text="myErrors.password" :class="`is-invalid`"></span>
             </div>
             <button type="submit" name="register" class="btn-register">

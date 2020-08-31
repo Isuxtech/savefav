@@ -2,18 +2,20 @@
     <nav>
         <div class="brand">
             <h2 class="logo"><a href="/" style="color:white;">SaveFav</a></h2>
-            <div class="hamburger-wrapper">
-                <div class="hamburger"></div>
-                <div class="hamburger"></div>
-                <div class="hamburger"></div>
-            </div>
+<!--            <div class="hamburger-wrapper">-->
+<!--                <div class="hamburger"></div>-->
+<!--                <div class="hamburger"></div>-->
+<!--                <div class="hamburger"></div>-->
+<!--            </div>-->
         </div>
-        <form action="/" class="search-form" method="GET">
-            <div class="search-group">
-                <input type="search" name="search" class="search-controls">
-                <button class="btn-search" type="submit">Search</button>
-            </div>
-        </form>
+
+<!--       <form @submit.prevent="makeSearch" class="search-form" method="POST">-->
+<!--            <div class="search-group">-->
+<!--&lt;!&ndash;                <input type="hidden" name="_token" value>&ndash;&gt;-->
+<!--                <input type="search" name="searchquery" v-model="searchquery" class="search-controls">-->
+<!--                <button class="btn-search" type="submit">Search</button>-->
+<!--            </div>-->
+<!--        </form>-->
         <div class="navbar">
 
             <a href="/create" class="navlink"> <span style="font-size:1.6rem">+ &thinsp;</span> |</a>
@@ -56,29 +58,40 @@
             showPublicPosts(){
                 localStorage.setItem('show_public_posts',true);
                 this.show_public_post = true;
-                console.log(typeof this.show_public_post)
-
-                // localStorage.getItem('show_public_posts') ? localStorage.getItem('show_public_posts') :
-                // localStorage.setItem('show_public_posts', true);
-                // this.show_public_post = localStorage.getItem('show_public_posts');
-                // console.log(this.show_public_post)
             },
             hidePublicPosts(){
                 localStorage.removeItem('show_public_posts');
                 this.show_public_post =false;
 
             },
-            showGeneral(){
-                // if(this.accessToken){
-                //     this.show_public_post = false;
-                // }
-
-            }
+            // makeSearch(){
+            //     axios.post(`../api/search`,
+            //         {
+            //             searchquery:this.searchquery,
+            //         },
+            //         {
+            //             headers:{
+            //                 'Authorization' : (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts'))? `Bearer ${localStorage.getItem('accessToken')}` : '',
+            //                 'Content-Type': 'Application/json',
+            //                 'Accept': 'Application/json'
+            //             }
+            //
+            //         }
+            //     )
+            //     .then(resolve =>{
+            //         // location.href=`/result/${resolve.data}`
+            //         console.log(resolve)
+            //     })
+            //     .catch(err=>{
+            //             // implement a catch block here
+            //             console.log(err)
+            //         })
+            //
+            // }
         },
         created() {
             this.accessToken = localStorage.accessToken ? true :false;
             this.show_public_post = localStorage.getItem('show_public_posts') ? true : false;
-            console.log(this.show_public_post)
         }
     }
 </script>

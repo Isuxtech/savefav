@@ -40,6 +40,11 @@ Vue.component(
 );
 
 Vue.component(
+    'result-component',
+    require('./components/resultComponent.vue').default
+);
+
+Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue').default
 );

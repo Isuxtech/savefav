@@ -14,7 +14,7 @@ body {
 nav {
   background-color: #023e71;
   color: white;
-  padding: 15px 5px;
+  padding: 10px 5px;
   display: grid;
   grid-template-columns: repeat(2, -webkit-max-content);
   grid-template-columns: repeat(2, max-content);
@@ -28,8 +28,6 @@ nav {
   nav {
     padding: 20px;
     margin-top: 20px;
-    grid-template-columns: -webkit-max-content 1fr -webkit-max-content;
-    grid-template-columns: max-content 1fr max-content;
   }
 }
 
@@ -167,6 +165,36 @@ nav {
   grid-template-columns: 1fr;
 }
 
+.pagination-wrapper {
+  text-align: right;
+  display: flex;
+  padding: 5px 20px;
+  justify-content: end;
+  align-items: center;
+}
+
+.pagelabel {
+  color: blue;
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+.page_number {
+  color: #176dee;
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+.moveLeft {
+  margin-right: 8px;
+  border: transparent;
+}
+
+.moveRight {
+  margin-left: 8px;
+  border: transparent;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -174,7 +202,7 @@ nav {
   grid-auto-flow: row;
   grid-gap: 20px;
   padding: 30px;
-  background-color: #cbcccd;
+  background-color: rgba(248, 248, 248, 0.36);
 }
 
 @media (max-width: 440px) {
@@ -189,9 +217,9 @@ nav {
   flex-direction: column;
   background-color: rgba(241, 242, 243, 0.28);
   padding: 10px;
-  border-radius: 2px;
+  border-radius: 10px;
   line-height: 1.3rem;
-  box-shadow: 0px 0px 4px 0px #c2c4c2;
+  box-shadow: 0px 0px 5px 1px rgba(179, 177, 177, 0.91);
   justify-content: space-between;
   background-color: white;
 }

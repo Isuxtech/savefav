@@ -5,7 +5,7 @@
             <input type="hidden" name="_token" :value="csrf">
             <div class="form-group">
                 <label for="title">Name</label>
-                <input type="text" name="title" class="form-controls" v-model="title">
+                <input type="text" name="title" class="form-controls" v-model="title" required>
                 <span v-if="myErrors.title" v-text="myErrors.title" :class="`is-invalid`"></span>
             </div>
             <div class="form-group">
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label for="url">url (site address)</label>
-                <input type="text" name="url" class="form-controls" v-model="url">
+                <input type="text" name="url" class="form-controls" v-model="url" required>
                 <span v-if="myErrors.url" v-text="myErrors.url" :class="`is-invalid`"></span>
             </div>
             <div class="form-group-checkbox" v-if="accessToken">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" rows="8" class="form-controls" v-model="description">
+                <textarea name="description" rows="8" class="form-controls" v-model="description" required>
                 </textarea>
                 <span v-if="myErrors.description" v-text="myErrors.description" :class="`is-invalid`"></span>
             </div>
@@ -55,6 +55,10 @@
         },
         methods:{
             createLink(){
+                /***
+                 * @default
+                 * access_type of 1 means public while access type of 0 means private
+                 */
                 let axiosSend;
                 if(!this.accessToken){
                     axiosSend = axios.post('../api/dashboard/createPublic',{
