@@ -180,9 +180,10 @@ nav{
 .wrapper-links:hover {
 //cursor: pointer;
     box-shadow:0px 0px 5px 1px rgba(179, 177, 177, 0.91);
-    transition-property: box-shadow;
+    transition-property: box-shadow, transform;
     transition-duration: 200ms;
     transition-timing-function: ease-in;
+    transform:scale(1.01);
 
 }
 
