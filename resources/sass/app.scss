@@ -186,7 +186,9 @@ nav{
     transform:scale(1.01);
 
 }
-
+a:visited{
+    text-decoration: none;
+}
 .link-title{
     font-weight: lighter;
     font-size:1.1rem;
