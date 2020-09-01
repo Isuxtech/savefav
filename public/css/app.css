@@ -12,6 +12,11 @@ body {
   font-weight: 200;
   margin: 0;
   background-color: rgba(1, 18, 40, 0.87);
+  color: black !important;
+}
+
+p {
+  color: black;
 }
 
 nav {
@@ -47,8 +52,13 @@ nav {
   }
 }
 
+.navbar a,
+.navbar a:visited {
+  color: white !important;
+}
+
 .navlink {
-  color: white;
+  color: white !important;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -275,8 +285,9 @@ a:visited {
   font-size: 0.9rem;
 }
 
-.link {
-  color: blue;
+.link,
+.link:visited {
+  color: blue !important;
 }
 
 .create-wrapper {
@@ -496,11 +507,13 @@ label {
   cursor: pointer;
 }
 
-.add {
+.add,
+.add:visited {
   color: #1869f5;
 }
 
-.remove {
+.remove,
+.remove:visited {
   color: #f61d1d;
 }
 

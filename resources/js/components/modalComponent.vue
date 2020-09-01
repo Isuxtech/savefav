@@ -8,7 +8,7 @@
                    </div>
                    <div class="modal-group">
                        <label for="" class="title">Url:</label>
-                       <a :href="linkInfo.url" target="_blank" class="content-wrapper">{{linkInfo.url}}</a>
+                       <a :href="linkInfo.url" target="_blank" class="content-wrapper link">{{linkInfo.url}}</a>
                    </div>
                    <div class="modal-group">
                        <label for="" class="title">date created:</label>

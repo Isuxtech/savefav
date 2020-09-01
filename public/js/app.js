@@ -40478,7 +40478,7 @@ var render = function() {
           _c(
             "a",
             {
-              staticClass: "content-wrapper",
+              staticClass: "content-wrapper link",
               attrs: { href: _vm.linkInfo.url, target: "_blank" }
             },
             [_vm._v(_vm._s(_vm.linkInfo.url))]

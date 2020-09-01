@@ -27,9 +27,12 @@ nav{
     @media (min-width: 440px){
         margin-right:30px;
     }
+    a, a:visited{
+        color: white !important;
+    }
 }
 .navlink{
-    color:white;
+    color:white !important;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -44,7 +47,9 @@ nav{
 }
 .logo{
  grid-column: 2/3;
+
 }
+
 .hamburger-wrapper{
     display:grid;
     width:30px;
@@ -222,8 +227,8 @@ a:visited{
 .fixed-cat{
     font-size:0.9rem;
 }
-.link{
-    color:blue;
+.link, .link:visited{
+    color:blue !important;
 }
 
 .create-wrapper{
@@ -402,10 +407,10 @@ label{
     cursor:pointer;
 
 }
-.add{
+.add , .add:visited{
     color: #1869f5;
 }
-.remove{
+.remove ,.remove:visited{
     color: #f61d1d;
 }
 
