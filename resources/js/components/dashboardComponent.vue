@@ -25,10 +25,11 @@
                </div>
 
            </div>
-           <div v-if="linkContent.total ==0" :class="`empty-result`">
-<!--               <img :src="" alt="">-->
-               <h2 :class="`empty-text`">No Result Found</h2>
-           </div>
+
+       </div>
+       <div v-if="linkContent.total ==0" :class="`empty-result`">
+           <!--               <img :src="" alt="">-->
+           <h2 :class="`empty-text`">No Result Found</h2>
        </div>
        <detailsModal v-bind:link_id="active_link_id" v-if="show_modal" @modal:close="showModal" v-bind:publisher="publisher"></detailsModal>
    </section>

@@ -2057,6 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -40251,61 +40252,59 @@ var render = function() {
       _c(
         "div",
         { staticClass: "wrapper" },
-        [
-          _vm._l(_vm.linkContent.data, function(links) {
-            return _c("div", { key: links.id, staticClass: "wrapper-links" }, [
+        _vm._l(_vm.linkContent.data, function(links) {
+          return _c("div", { key: links.id, staticClass: "wrapper-links" }, [
+            _c(
+              "a",
+              {
+                staticClass: "description-wrapper",
+                attrs: { href: links.url, target: "_blank" }
+              },
+              [
+                _c("h3", {
+                  staticClass: "link-title link-text",
+                  domProps: { textContent: _vm._s(links.title) }
+                }),
+                _vm._v(" "),
+                _c("p", {
+                  staticClass: "link-content",
+                  domProps: { textContent: _vm._s(links.description) }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "category-wrapper" }, [
+              _c("span", { staticClass: "fixed-cat" }, [
+                _vm._v(
+                  " Category: " + _vm._s(links.category.category_name) + "\n"
+                )
+              ]),
+              _vm._v(" "),
               _c(
                 "a",
                 {
-                  staticClass: "description-wrapper",
-                  attrs: { href: links.url, target: "_blank" }
-                },
-                [
-                  _c("h3", {
-                    staticClass: "link-title link-text",
-                    domProps: { textContent: _vm._s(links.title) }
-                  }),
-                  _vm._v(" "),
-                  _c("p", {
-                    staticClass: "link-content",
-                    domProps: { textContent: _vm._s(links.description) }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "category-wrapper" }, [
-                _c("span", { staticClass: "fixed-cat" }, [
-                  _vm._v(
-                    " Category: " + _vm._s(links.category.category_name) + "\n"
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "link",
-                    attrs: { href: "", "data-link": links.id },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.activeLinkID($event)
-                      }
+                  staticClass: "link",
+                  attrs: { href: "", "data-link": links.id },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.activeLinkID($event)
                     }
-                  },
-                  [_vm._v(" view more")]
-                )
-              ])
+                  }
+                },
+                [_vm._v(" view more")]
+              )
             ])
-          }),
-          _vm._v(" "),
-          _vm.linkContent.total == 0
-            ? _c("div", { class: "empty-result" }, [
-                _c("h2", { class: "empty-text" }, [_vm._v("No Result Found")])
-              ])
-            : _vm._e()
-        ],
-        2
+          ])
+        }),
+        0
       ),
+      _vm._v(" "),
+      _vm.linkContent.total == 0
+        ? _c("div", { class: "empty-result" }, [
+            _c("h2", { class: "empty-text" }, [_vm._v("No Result Found")])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.show_modal
         ? _c("detailsModal", {
