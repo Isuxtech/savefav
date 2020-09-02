@@ -488,3 +488,25 @@ label{
     top:0px;
 }
 
+.empty-result{
+    background-image:url('../imgs/empty.png');
+    height:200px;
+    width:200px;
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-position: center;
+
+    display:grid;
+    margin:auto;
+    align-items: center;
+    grid-column: 1/-1;
+    text-align:center;
+
+    @media (max-width: 440px){
+        height:100vh;
+    }
+}
+.empty-text{
+    color:white;
+    text-shadow: 0px 0px 5px green;
+}

@@ -58,12 +58,21 @@ class DashboardController extends Controller
                     ->orWhere(function ($query) {
                         $query->where('access_type', '0')->where('user_id', 2); // get a private links that has a user_id of the userID
                     });
-                    })->get();
+                    })
+                    ->with(['category'=>function($query){
+                        $query->select('cat_id','category_name');
+                    }])
+                ->paginate(20);
 
         }else{
-                $sites = Site::Search($resultString)->where('access_type','1')->get();
+                $sites = Site::Search($resultString)
+                    ->where('access_type','1')
+                    ->with(['category'=>function($query){
+                        $query->select('cat_id','category_name');
+                    }])
+                    ->paginate(20);
         }
-        return response(['result'=>$sites,'publisher'=>$userID ?? null,'postsCount'=>$sites->count()]) ;
+        return response(['savedlink'=>$sites,'publisher'=>$userID ?? null,'postsCount'=>$sites->count()]) ;
     }
 
 

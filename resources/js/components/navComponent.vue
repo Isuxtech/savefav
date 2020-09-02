@@ -12,7 +12,7 @@
        <form @submit.prevent="makeSearch" class="search-form" method="POST">
             <div class="search-group">
 <!--                <input type="hidden" name="_token" value>-->
-                <input type="search" name="searchquery" v-model="searchquery" class="search-controls" @focus="removeSearchError">
+                <input type="search" name="searchquery" v-model="searchquery" class="search-controls" @focus="removeSearchError" required>
                 <button class="btn-search" type="submit">Search</button>
             </div>
            <span v-show="searchError" style="font-size:0.9rem">Cannot be less than 3</span>
@@ -37,7 +37,7 @@
             return{
                 accessToken:null,
                 show_public_post:true,
-                searchquery:null,
+                searchquery:"",
                 searchError:null,
             }
         },
@@ -73,30 +73,6 @@
                 }else{
                     this.searchError = true
                 }
-
-                // axios.post(`../api/search`,
-                //     {
-                //         searchquery:this.searchquery,
-                //     },
-                //     {
-                //         headers:{
-                //             'Authorization' : (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts'))? `Bearer ${localStorage.getItem('accessToken')}` : '',
-                //             'Content-Type': 'Application/json',
-                //             'Accept': 'Application/json'
-                //         }
-                //
-                //     }
-                // )
-                // .then(resolve =>{
-                //     // location.href=`/result/${resolve.data}`
-                //     console.log(resolve)
-                //   this.$emit('search:query',response)
-                // })
-                // .catch(err=>{
-                //         // implement a catch block here
-                //         console.log(err)
-                //     })
-
             },
             removeSearchError(){
                 this.searchError = false
