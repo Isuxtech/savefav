@@ -2020,6 +2020,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modalComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalComponent */ "./resources/js/components/modalComponent.vue");
+/* harmony import */ var _navComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navComponent */ "./resources/js/components/navComponent.vue");
 //
 //
 //
@@ -2048,6 +2049,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2055,20 +2061,31 @@ __webpack_require__.r(__webpack_exports__);
       active_link_id: null,
       linkContent: {},
       show_modal: false,
-      publisher: null
+      publisher: null,
+      show_preloader: null
     };
   },
   computed: {
     defaultValues: function defaultValues() {
+      this.generalAxios('../api/dashboard');
+    },
+    getPublic: function getPublic() {
+      this.generalAxios('../api/publicPosts');
+    }
+  },
+  methods: {
+    generalAxios: function generalAxios(apiurl) {
       var _this = this;
 
-      axios.get('../api/dashboard', {
+      this.show_preloader = true;
+      axios.get(apiurl, {
         headers: {
-          'Authorization': "Bearer ".concat(localStorage.getItem('accessToken')),
+          'Authorization': "Bearer ".concat(localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null),
           'Content-Type': 'Application/json',
           'Accept': 'Application/json'
         }
       }).then(function (resolve) {
+        _this.show_preloader = false;
         _this.linkContent = resolve.data.savedlink;
         _this.publisher = resolve.data.publisher;
         /***
@@ -2080,63 +2097,26 @@ __webpack_require__.r(__webpack_exports__);
           currentValue.description = "".concat(currentValue.description.substring(0, 120).trim(), " ...");
         });
       })["catch"](function (err) {// implement a catch block here
-      });
+      }); // .finally(this.show_preloader = false)
     },
-    getPublic: function getPublic() {
-      var _this2 = this;
-
-      axios.get('../api/publicPosts').then(function (resolve) {
-        _this2.linkContent = resolve.data.savedlink;
-        _this2.publisher = resolve.data.publisher;
-        /***
-         * the map is used to add the 3 dots at the end of the description
-         * it loops through the entire result, selects 100 character and adds the ... at the end
-         */
-
-        _this2.linkContent.data.map(function (currentValue) {
-          currentValue.description = "".concat(currentValue.description.substring(0, 120).trim(), " ...");
-        });
-      });
-    }
-  },
-  methods: {
+    madeSearch: function madeSearch(emittedvalue) {
+      console.log('this is the emiited value', emittedvalue);
+    },
     movePage: function movePage(event) {
-      var _this3 = this;
-
       var pageinfo = event.target;
-      console.log("..".concat(pageinfo.pathname + pageinfo.search));
-      axios.get("..".concat(pageinfo.pathname + pageinfo.search), {
-        headers: {
-          'Authorization': localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts') ? "Bearer ".concat(localStorage.getItem('accessToken')) : '',
-          'Content-Type': 'Application/json',
-          'Accept': 'Application/json'
-        }
-      }).then(function (resolve) {
-        _this3.linkContent = resolve.data.savedlink;
-        _this3.publisher = resolve.data.publisher;
-        /***
-         * the map is used to add the 3 dots at the end of the description
-         * it loops through the entire result, selects 100 character and adds the ... at the end
-         */
-
-        _this3.linkContent.data.map(function (currentValue) {
-          currentValue.description = "".concat(currentValue.description.substring(0, 120).trim(), " ...");
-        });
-      })["catch"](function (err) {
-        // implement a catch block here
-        console.log(err);
-      });
+      this.generalAxios("..".concat(pageinfo.pathname + pageinfo.search));
     },
     activeLinkID: function activeLinkID(element) {
       this.active_link_id = element.target.dataset.link;
-      this.show_modal = true; // console.log( element.target.dataset.link)
+      this.show_modal = true;
     },
     showModal: function showModal() {
       this.show_modal = false;
     }
   },
   components: {
-    detailsModal: _modalComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    detailsModal: _modalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    navComponent: _navComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     if (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')) {
@@ -2417,11 +2397,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       accessToken: null,
-      show_public_post: true
+      show_public_post: true,
+      searchquery: null,
+      searchError: null
     };
   },
   methods: {
@@ -2445,31 +2428,39 @@ __webpack_require__.r(__webpack_exports__);
     hidePublicPosts: function hidePublicPosts() {
       localStorage.removeItem('show_public_posts');
       this.show_public_post = false;
-    } // makeSearch(){
-    //     axios.post(`../api/search`,
-    //         {
-    //             searchquery:this.searchquery,
-    //         },
-    //         {
-    //             headers:{
-    //                 'Authorization' : (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts'))? `Bearer ${localStorage.getItem('accessToken')}` : '',
-    //                 'Content-Type': 'Application/json',
-    //                 'Accept': 'Application/json'
-    //             }
-    //
-    //         }
-    //     )
-    //     .then(resolve =>{
-    //         // location.href=`/result/${resolve.data}`
-    //         console.log(resolve)
-    //     })
-    //     .catch(err=>{
-    //             // implement a catch block here
-    //             console.log(err)
-    //         })
-    //
-    // }
+    },
+    makeSearch: function makeSearch() {
+      if (this.searchquery.trim('').length > 2) {
+        this.$emit('search', this.searchquery);
+      } else {
+        this.searchError = true;
+      } // axios.post(`../api/search`,
+      //     {
+      //         searchquery:this.searchquery,
+      //     },
+      //     {
+      //         headers:{
+      //             'Authorization' : (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts'))? `Bearer ${localStorage.getItem('accessToken')}` : '',
+      //             'Content-Type': 'Application/json',
+      //             'Accept': 'Application/json'
+      //         }
+      //
+      //     }
+      // )
+      // .then(resolve =>{
+      //     // location.href=`/result/${resolve.data}`
+      //     console.log(resolve)
+      //   this.$emit('search:query',response)
+      // })
+      // .catch(err=>{
+      //         // implement a catch block here
+      //         console.log(err)
+      //     })
 
+    },
+    removeSearchError: function removeSearchError() {
+      this.searchError = false;
+    }
   },
   created: function created() {
     this.accessToken = localStorage.accessToken ? true : false;
@@ -40146,6 +40137,14 @@ var render = function() {
   return _c(
     "section",
     [
+      _c("nav-component", { on: { search: _vm.madeSearch } }),
+      _vm._v(" "),
+      _vm.show_preloader
+        ? _c("div", { staticClass: "preloader" }, [
+            _c("img", { attrs: { src: "../imgs/loading.gif", alt: "" } })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "pagination-wrapper" }, [
         _c("span", { staticClass: "pagelabel" }, [_vm._v(" page:")]),
         _vm._v(" "),
@@ -40587,6 +40586,68 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("nav", [
     _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "search-form",
+        attrs: { method: "POST" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.makeSearch($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "search-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchquery,
+                expression: "searchquery"
+              }
+            ],
+            staticClass: "search-controls",
+            attrs: { type: "search", name: "searchquery" },
+            domProps: { value: _vm.searchquery },
+            on: {
+              focus: _vm.removeSearchError,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.searchquery = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn-search", attrs: { type: "submit" } },
+            [_vm._v("Search")]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.searchError,
+                expression: "searchError"
+              }
+            ],
+            staticStyle: { "font-size": "0.9rem" }
+          },
+          [_vm._v("Cannot be less than 3")]
+        )
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "navbar" }, [
       _vm._m(1),

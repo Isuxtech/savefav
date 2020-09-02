@@ -1,5 +1,9 @@
 <template>
    <section>
+       <nav-component @search="madeSearch"></nav-component>
+       <div class="preloader" v-if="show_preloader">
+           <img :src="`../imgs/loading.gif`" alt="">
+       </div>
        <div class="pagination-wrapper">
            <span class="pagelabel"> page:</span>
            <a @click.prevent="movePage" :href="linkContent.prev_page_url" v-if="linkContent.prev_page_url" class="moveLeft"> < </a>
@@ -28,6 +32,7 @@
 
 <script>
     import detailsModal from './modalComponent';
+    import navComponent from "./navComponent";
 
     export default {
         data(){
@@ -35,39 +40,33 @@
                 active_link_id:null,
                 linkContent:{},
                 show_modal: false,
-                publisher:null
+                publisher:null,
+                show_preloader:null
             }
         },
         computed:{
             defaultValues(){
-                axios.get('../api/dashboard',
+                this.generalAxios('../api/dashboard')
+            },
+            getPublic(){
+                this.generalAxios('../api/publicPosts')
+             }
+        },
+
+        methods:{
+            generalAxios(apiurl){
+                this.show_preloader = true
+                axios.get(apiurl ,
                     {
                         headers:{
-                            'Authorization' : `Bearer ${localStorage.getItem('accessToken')}`,
+                            'Authorization' : `Bearer ${localStorage.getItem('accessToken') ? localStorage.getItem('accessToken'):null}`,
                             'Content-Type': 'Application/json',
                             'Accept': 'Application/json'
                         }
-
                     }
                 )
-                .then(resolve =>{
-                    this.linkContent = resolve.data.savedlink;
-                    this.publisher = resolve.data.publisher;
-                    /***
-                     * the map is used to add the 3 dots at the end of the description
-                     * it loops through the entire result, selects 100 character and adds the ... at the end
-                     */
-                     this.linkContent.data.map(currentValue=>{
-                         currentValue.description  = `${currentValue.description.substring(0,120).trim()} ...`;
-                    })
-                })
-                .catch(err=>{
-                    // implement a catch block here
-                })
-            },
-            getPublic(){
-                axios.get('../api/publicPosts')
                     .then(resolve =>{
+                        this.show_preloader = false
                         this.linkContent = resolve.data.savedlink;
                         this.publisher = resolve.data.publisher;
                         /***
@@ -78,42 +77,25 @@
                             currentValue.description  = `${currentValue.description.substring(0,120).trim()} ...`;
                         })
                     })
-             }
-        },
-        methods:{
+                    .catch(err=>{
+                        // implement a catch block here
+                    })
+                    // .finally(this.show_preloader = false)
+            }
+            ,
+            madeSearch(emittedvalue){
+                console.log('this is the emiited value',emittedvalue)
+            },
+
             movePage(event){
                 let pageinfo = event.target;
-                console.log(`..${pageinfo.pathname+pageinfo.search}`)
-                axios.get(`..${pageinfo.pathname+pageinfo.search}`,
-                    {
-                        headers:{
-                            'Authorization' : (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts'))? `Bearer ${localStorage.getItem('accessToken')}` : '',
-                            'Content-Type': 'Application/json',
-                            'Accept': 'Application/json'
-                        }
-
-                    }
-                )
-                .then(resolve =>{
-                    this.linkContent = resolve.data.savedlink;
-                    this.publisher = resolve.data.publisher;
-                    /***
-                     * the map is used to add the 3 dots at the end of the description
-                     * it loops through the entire result, selects 100 character and adds the ... at the end
-                     */
-                    this.linkContent.data.map(currentValue=>{
-                        currentValue.description  = `${currentValue.description.substring(0,120).trim()} ...`;
-                    })
-                })
-                .catch(err=>{
-                    // implement a catch block here
-                    console.log(err)
-                })
+                this.generalAxios(`..${pageinfo.pathname+pageinfo.search}`)
             },
+
+
             activeLinkID(element){
                 this.active_link_id = element.target.dataset.link;
                 this.show_modal = true;
-                // console.log( element.target.dataset.link)
             },
             showModal(){
                 this.show_modal = false;
@@ -121,15 +103,19 @@
         },
 
         components:{
-            detailsModal
+            detailsModal,
+            navComponent
         },
+
         mounted() {
+
             if(localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')){
                 this.defaultValues
             }else{
                 this.getPublic
             }
 
-        }
+        },
+
     }
 </script>

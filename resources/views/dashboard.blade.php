@@ -15,7 +15,6 @@
 </head>
 <body >
         <div class="container" id="app">
-            <nav-component></nav-component>
             <dashboard-component></dashboard-component>
         </div>
 </body>
