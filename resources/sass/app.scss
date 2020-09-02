@@ -210,6 +210,11 @@ a:visited{
     width:100%;
     //height: 70px;
 }
+
+.description-wrapper:visited{
+    text-decoration: none;
+    color: #010d15;
+}
 .link-content{
     text-overflow: ellipsis;
     overflow: hidden;
