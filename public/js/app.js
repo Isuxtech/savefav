@@ -40214,39 +40214,28 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticStyle: {
-                  display: "grid",
-                  "grid-template-columns": "repeat(2, max-content)",
-                  "justify-content": "space-between",
-                  "margin-top": "5px"
-                }
-              },
-              [
-                _c("span", { staticClass: "fixed-cat" }, [
-                  _vm._v(
-                    " Category: " + _vm._s(links.category.category_name) + "\n"
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "link",
-                    attrs: { href: "", "data-link": links.id },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.activeLinkID($event)
-                      }
-                    }
-                  },
-                  [_vm._v(" view more")]
+            _c("div", { staticClass: "category-wrapper" }, [
+              _c("span", { staticClass: "fixed-cat" }, [
+                _vm._v(
+                  " Category: " + _vm._s(links.category.category_name) + "\n"
                 )
-              ]
-            )
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "link",
+                  attrs: { href: "", "data-link": links.id },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.activeLinkID($event)
+                    }
+                  }
+                },
+                [_vm._v(" view more")]
+              )
+            ])
           ])
         }),
         0

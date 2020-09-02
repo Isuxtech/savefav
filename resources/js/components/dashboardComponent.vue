@@ -13,7 +13,7 @@
                    <h3 class="link-title link-text" v-text="links.title" ></h3>
                    <p class="link-content" v-text="links.description"></p>
                </a>
-               <div style="display: grid;grid-template-columns: repeat(2, max-content);justify-content: space-between;margin-top:5px;">
+               <div class="category-wrapper">
                    <span class="fixed-cat"> Category: {{links.category.category_name}}
 <!--                       <a :href="`/category/${links.category.cat_id}`" v-text="links.category.category_name" class="link"></a>-->
                    </span>
