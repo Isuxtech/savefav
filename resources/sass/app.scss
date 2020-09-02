@@ -125,10 +125,6 @@ nav{
         width:99%;
     }
 }
-.container-full{
-    display:grid;
-    grid-template-columns: 1fr;
-}
 
 .pagination-wrapper{
     text-align:right;
@@ -399,8 +395,7 @@ label{
     display: grid;
     justify-items: center;
     background-color:white;
-    box-shadow: 0px 0px 0px 1px #bee0f6,
-    0px 0px 5px 0px #c9c7c7;
+    box-shadow: 0px 0px 0px 1px #bee0f6, 0px 0px 5px 0px #c9c7c7;
     padding:10px;
     border-radius: 5px;
     cursor:pointer;

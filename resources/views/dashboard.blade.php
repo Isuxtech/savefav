@@ -16,9 +16,7 @@
 <body >
         <div class="container" id="app">
             <nav-component></nav-component>
-            <main class="container-full">
-               <dashboard-component></dashboard-component>
-            </main>
+            <dashboard-component></dashboard-component>
         </div>
 </body>
 </html>
