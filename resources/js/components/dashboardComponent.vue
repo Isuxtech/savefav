@@ -2,7 +2,7 @@
    <section>
        <nav-component @search="madeSearch"></nav-component>
        <div class="preloader" v-if="show_preloader">
-           <img :src="`../imgs/loading.gif`" alt="">
+           <img :src="`../imgs/loading.gif`" alt="" class="loader">
        </div>
        <div class="pagination-wrapper">
            <span class="pagelabel"> page:</span>

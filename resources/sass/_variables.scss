@@ -19,6 +19,14 @@ $search-background: rgba(2, 25, 45, 0.5);
     margin:0;
     outline: none;
 }
+.loader{
+    width:200px;
+    height: 150px;
+    @media (min-width: 440px){
+        width:250px;
+        height: 200px;
+    }
+}
 body {
     font-family: 'Nunito', sans-serif !important;
     margin: 0;

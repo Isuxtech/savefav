@@ -8,6 +8,18 @@
   outline: none;
 }
 
+.loader {
+  width: 200px;
+  height: 150px;
+}
+
+@media (min-width: 440px) {
+  .loader {
+    width: 250px;
+    height: 200px;
+  }
+}
+
 body {
   font-family: "Nunito", sans-serif !important;
   margin: 0;

@@ -40141,7 +40141,10 @@ var render = function() {
       _vm._v(" "),
       _vm.show_preloader
         ? _c("div", { staticClass: "preloader" }, [
-            _c("img", { attrs: { src: "../imgs/loading.gif", alt: "" } })
+            _c("img", {
+              staticClass: "loader",
+              attrs: { src: "../imgs/loading.gif", alt: "" }
+            })
           ])
         : _vm._e(),
       _vm._v(" "),
