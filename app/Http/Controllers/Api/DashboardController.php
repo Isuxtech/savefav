@@ -100,7 +100,7 @@ class DashboardController extends Controller
             'access_type' => ['required','integer'],
         ]);
 
-        $linkUrl = !Str::of($request->input('url'))
+        $linkUrl = !Str::of( trim($request->input('url') ))
             ->startsWith('http') ? Str::of($request->input('url'))->prepend('https://') : $request->input('url') ;
         try{
             $newSite = new Site();

@@ -12,7 +12,7 @@
        <form @submit.prevent="makeSearch" class="search-form" method="POST">
             <div class="search-group">
 <!--                <input type="hidden" name="_token" value>-->
-                <input type="search" name="searchquery" v-model="searchquery" class="search-controls" @focus="removeSearchError" required>
+                <input type="search" name="searchquery" v-model="searchquery" placeholder="search post" class="search-controls" @focus="removeSearchError" required>
                 <button class="btn-search" type="submit">Search</button>
             </div>
            <span v-show="searchError" style="font-size:0.9rem">Cannot be less than 3</span>

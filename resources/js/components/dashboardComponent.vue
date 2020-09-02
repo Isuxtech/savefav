@@ -18,9 +18,12 @@
                    <p class="link-content" v-text="links.description"></p>
                </a>
                <div class="category-wrapper">
-                   <span class="fixed-cat"> Category: {{links.category.category_name}}
+                   <span class="fixed-cat"> {{links.category.category_name}}</span>
 <!--                       <a :href="`/category/${links.category.cat_id}`" v-text="links.category.category_name" class="link"></a>-->
-                   </span>
+                   <div @click="shares(`/category/${links.id}`,links.title)" :class="`share-wrapper`" v-if="can_share">
+                       <img :src="'../imgs/reply-black-18dp.svg'" alt="" :class="`share-icon`">
+                       <span :class="`share-text`">share</span>
+                   </div>
                    <a class="link" @click.prevent="activeLinkID" href="" :data-link="links.id"> view more</a>
                </div>
 
@@ -46,7 +49,8 @@
                 linkContent:{},
                 show_modal: false,
                 publisher:null,
-                show_preloader:null
+                show_preloader:null,
+                can_share:null,
             }
         },
         computed:{
@@ -65,6 +69,16 @@
         },
 
         methods:{
+            shares(url,title){
+                if (navigator.share()){
+                    return navigator.share({
+                        'title':'sending link from savefav.isuxtech.com',
+                        'text':title,
+                        'url':url
+                    })
+                }
+
+            },
             /***
              * @return object
              *
@@ -192,6 +206,11 @@
                 this.getPublic
             }
 
+            if(navigator.share()){
+                this.can_share = true
+            }else{
+                this.can_share = false
+            }
         },
 
     }

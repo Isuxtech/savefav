@@ -2058,6 +2058,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2067,7 +2070,8 @@ __webpack_require__.r(__webpack_exports__);
       linkContent: {},
       show_modal: false,
       publisher: null,
-      show_preloader: null
+      show_preloader: null,
+      can_share: null
     };
   },
   computed: {
@@ -2086,6 +2090,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    shares: function shares(url, title) {
+      if (navigator.share()) {
+        return navigator.share({
+          'title': 'sending link from savefav.isuxtech.com',
+          'text': title,
+          'url': url
+        });
+      }
+    },
+
     /***
      * @return object
      *
@@ -2200,6 +2214,12 @@ __webpack_require__.r(__webpack_exports__);
       this.defaultValues;
     } else {
       this.getPublic;
+    }
+
+    if (navigator.share()) {
+      this.can_share = true;
+    } else {
+      this.can_share = false;
     }
   }
 });
@@ -40275,10 +40295,33 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "category-wrapper" }, [
               _c("span", { staticClass: "fixed-cat" }, [
-                _vm._v(
-                  " Category: " + _vm._s(links.category.category_name) + "\n"
-                )
+                _vm._v(" " + _vm._s(links.category.category_name))
               ]),
+              _vm._v(" "),
+              _vm.can_share
+                ? _c(
+                    "div",
+                    {
+                      class: "share-wrapper",
+                      on: {
+                        click: function($event) {
+                          return _vm.shares(
+                            "/category/" + links.id,
+                            links.title
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("img", {
+                        class: "share-icon",
+                        attrs: { src: "../imgs/reply-black-18dp.svg", alt: "" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { class: "share-text" }, [_vm._v("share")])
+                    ]
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "a",
@@ -40677,7 +40720,12 @@ var render = function() {
               }
             ],
             staticClass: "search-controls",
-            attrs: { type: "search", name: "searchquery", required: "" },
+            attrs: {
+              type: "search",
+              name: "searchquery",
+              placeholder: "search post",
+              required: ""
+            },
             domProps: { value: _vm.searchquery },
             on: {
               focus: _vm.removeSearchError,
