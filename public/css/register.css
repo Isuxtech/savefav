@@ -9,14 +9,9 @@
 
 body {
   font-family: "Nunito", sans-serif !important;
-  font-weight: 200;
   margin: 0;
   background-color: rgba(1, 18, 40, 0.87);
   color: black !important;
-}
-
-p {
-  color: black;
 }
 
 .container {

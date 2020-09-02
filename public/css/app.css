@@ -9,14 +9,9 @@
 
 body {
   font-family: "Nunito", sans-serif !important;
-  font-weight: 200;
   margin: 0;
   background-color: rgba(1, 18, 40, 0.87);
   color: black !important;
-}
-
-p {
-  color: black;
 }
 
 nav {
@@ -173,16 +168,11 @@ nav {
   }
 }
 
-.container-full {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
 .pagination-wrapper {
   text-align: right;
   display: flex;
   padding: 5px 20px;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -250,7 +240,6 @@ a:visited {
 }
 
 .link-title {
-  font-weight: lighter;
   font-size: 1.1rem;
   padding: 0;
   margin: 0;

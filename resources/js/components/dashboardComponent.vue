@@ -1,5 +1,5 @@
 <template>
-   <section style="font-weight:600;">
+   <section>
        <div class="pagination-wrapper">
            <span class="pagelabel"> page:</span>
            <a @click.prevent="movePage" :href="linkContent.prev_page_url" v-if="linkContent.prev_page_url" class="moveLeft"> < </a>
