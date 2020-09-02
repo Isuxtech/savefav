@@ -23,5 +23,9 @@ body {
     margin: 0;
     background-color: rgba(1, 18, 40, 0.87);
     color: black !important;
+    @media (max-width:440px){
+        font-weight: normal;
+
+    }
 }
 
