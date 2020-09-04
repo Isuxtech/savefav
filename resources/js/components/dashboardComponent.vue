@@ -19,8 +19,8 @@
                </a>
                <div class="category-wrapper">
                    <span class="fixed-cat"> {{links.category.category_name}}</span>
-<!--                       <a :href="`/category/${links.category.cat_id}`" v-text="links.category.category_name" class="link"></a>-->
-                   <div @click="shares(`/category/${links.id}`,links.title)" :class="`share-wrapper`" v-if="can_share">
+<!--                   this is share share icon part-->
+                   <div @click="shares(`/shared/${links.id}`,links.title)" :class="`share-wrapper`" v-if="can_share">
                        <img :src="'../imgs/reply-black-18dp.svg'" alt="" :class="`share-icon`">
                        <span :class="`share-text`">share</span>
                    </div>
@@ -43,6 +43,9 @@
     import navComponent from "./navComponent";
 
     export default {
+        props:{
+            'shared':String
+        },
         data(){
             return{
                 active_link_id:null,
@@ -65,6 +68,20 @@
              */
             getPublic(){
                 this.generalAxios('../api/publicPosts')
+             },
+
+             isSharedLink(){
+                 if(this.shared !=undefined || this.shared !=null){
+                     //force a data key
+                     let shared_link_object = { 'data':JSON.parse(this.shared) }
+                     this.show_modal = true;
+                     this.linkContent = shared_link_object;
+                     this.publisher = this.linkContent.data[0].user_id;
+                     this.active_link_id = this.linkContent.data[0].id;
+                     console.log(this.linkContent.data)
+                     return true
+                 }
+                 return false;
              }
         },
 
@@ -200,13 +217,24 @@
 
         mounted() {
 
-            if(localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')){
-                this.defaultValues
-            }else{
-                this.getPublic
+            console.log(this.shared)
+            /***
+             * determines whether to call the auth:api route of the normal route
+             * this.defaultValue is for the auth:api route
+             */
+            if(!this.isSharedLink) {
+                if (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')) {
+                    this.defaultValues
+                } else {
+                    this.getPublic
+                }
             }
-
-            if(navigator.share()){
+            /***
+             * this determines whether the share button will appear
+             * first it checks if the navigator.share() is supportted by the browser
+             * then it checks if the user has an access token which shows that the user is logged in
+             */
+            if(navigator.share() && localStorage.getItem('accessToken')){
                 this.can_share = true
             }else{
                 this.can_share = false

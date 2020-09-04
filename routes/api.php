@@ -32,5 +32,6 @@ Route::group(['middleware'=>'auth:api'],function(){
 
 
 Route::get('/dashboard/getPublicInfo/{id}', 'Api\DashboardController@showPublic');
+Route::get('/shared/{id}', 'Api\DashboardController@showPublic');
 Route::post('/dashboard/createPublic', 'Api\DashboardController@createPublic');
 Route::post('/search', 'Api\DashboardController@searchIndex');

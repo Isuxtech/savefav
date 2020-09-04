@@ -35,3 +35,20 @@ Route::get('/create', function () {
     return view('/createLink')->with('category', $category);
 });
 
+Route::get('/shared/{id}', function(Request $request){
+//    dd($request->id);
+
+        $sharedLink = App\Site::where('id',$request->id)
+            ->where('access_type',1)
+            ->with(['category'=>function($query) {
+                $query->select('cat_id', 'category_name')->first();
+            }])
+            ->get();
+
+        if($sharedLink && $sharedLink->count() >0) {
+
+            return view('dashboard',compact('sharedLink'));
+        }
+
+        return view('dashboard')->with('sharedLink', null);
+});

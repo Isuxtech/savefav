@@ -2064,6 +2064,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    'shared': String
+  },
   data: function data() {
     return {
       active_link_id: null,
@@ -2087,6 +2090,22 @@ __webpack_require__.r(__webpack_exports__);
      */
     getPublic: function getPublic() {
       this.generalAxios('../api/publicPosts');
+    },
+    isSharedLink: function isSharedLink() {
+      if (this.shared != undefined || this.shared != null) {
+        //force a data key
+        var shared_link_object = {
+          'data': JSON.parse(this.shared)
+        };
+        this.show_modal = true;
+        this.linkContent = shared_link_object;
+        this.publisher = this.linkContent.data[0].user_id;
+        this.active_link_id = this.linkContent.data[0].id;
+        console.log(this.linkContent.data);
+        return true;
+      }
+
+      return false;
     }
   },
   methods: {
@@ -2210,13 +2229,27 @@ __webpack_require__.r(__webpack_exports__);
     navComponent: _navComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
-    if (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')) {
-      this.defaultValues;
-    } else {
-      this.getPublic;
-    }
+    console.log(this.shared);
+    /***
+     * determines whether to call the auth:api route of the normal route
+     * this.defaultValue is for the auth:api route
+     */
 
-    if (navigator.share()) {
+    if (!this.isSharedLink) {
+      if (localStorage.getItem('accessToken') && !localStorage.getItem('show_public_posts')) {
+        this.defaultValues;
+      } else {
+        this.getPublic;
+      }
+    }
+    /***
+     * this determines whether the share button will appear
+     * first it checks if the navigator.share() is supportted by the browser
+     * then it checks if the user has an access token which shows that the user is logged in
+     */
+
+
+    if (navigator.share() && localStorage.getItem('accessToken')) {
       this.can_share = true;
     } else {
       this.can_share = false;
@@ -40305,10 +40338,7 @@ var render = function() {
                       class: "share-wrapper",
                       on: {
                         click: function($event) {
-                          return _vm.shares(
-                            "/category/" + links.id,
-                            links.title
-                          )
+                          return _vm.shares("/shared/" + links.id, links.title)
                         }
                       }
                     },

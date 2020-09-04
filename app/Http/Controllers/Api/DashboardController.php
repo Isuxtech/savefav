@@ -84,6 +84,7 @@ class DashboardController extends Controller
     }
     public function showPublic($id){
         $sites = Site::where('id',$id)
+            ->where('access_type','1')
             ->with(['category'=>function($query){
             $query->select('cat_id','category_name')->first();
         }])->first();
