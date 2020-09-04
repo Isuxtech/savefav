@@ -16,11 +16,14 @@
 </head>
 <body >
         <div class="container" id="app">
-            @if($sharedLink)
-                <dashboard-component shared="{{$sharedLink}}"></dashboard-component>
-            @else
-                <dashboard-component></dashboard-component>
-            @endif
+
+                @if(isset($sharedLink) )
+                    <dashboard-component shared="{{$sharedLink}}"></dashboard-component>
+                @else
+                    <dashboard-component></dashboard-component>
+                @endif
+
+
         </div>
 </body>
 </html>

@@ -40346,9 +40346,7 @@ var render = function() {
                       _c("img", {
                         class: "share-icon",
                         attrs: { src: "../imgs/reply-black-18dp.svg", alt: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { class: "share-text" }, [_vm._v("share")])
+                      })
                     ]
                   )
                 : _vm._e(),
@@ -40365,7 +40363,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" view more")]
+                [_vm._v(" Details")]
               )
             ])
           ])

@@ -52,3 +52,7 @@ Route::get('/shared/{id}', function(Request $request){
 
         return view('dashboard')->with('sharedLink', null);
 });
+
+Route::fallback(function(){
+    return view('dashboard');
+});

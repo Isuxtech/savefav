@@ -22,9 +22,9 @@
 <!--                   this is share share icon part-->
                    <div @click="shares(`/shared/${links.id}`,links.title)" :class="`share-wrapper`" v-if="can_share">
                        <img :src="'../imgs/reply-black-18dp.svg'" alt="" :class="`share-icon`">
-                       <span :class="`share-text`">share</span>
+<!--                       <span :class="`share-text`">share</span>-->
                    </div>
-                   <a class="link" @click.prevent="activeLinkID" href="" :data-link="links.id"> view more</a>
+                   <a class="link" @click.prevent="activeLinkID" href="" :data-link="links.id"> Details</a>
                </div>
 
            </div>
