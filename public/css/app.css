@@ -670,6 +670,11 @@ label {
   height: 600px;
 }
 
+.details-link {
+  text-align: right;
+  align-self: end;
+}
+
 .share-text {
   font-size: 0.8rem;
   transform: translateY(-10px);

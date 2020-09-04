@@ -24,7 +24,7 @@
                        <img :src="'../imgs/reply-black-18dp.svg'" alt="" :class="`share-icon`">
 <!--                       <span :class="`share-text`">share</span>-->
                    </div>
-                   <a class="link" @click.prevent="activeLinkID" href="" :data-link="links.id"> Details</a>
+                   <a class="link" @click.prevent="activeLinkID" href="" :data-link="links.id"> details</a>
                </div>
 
            </div>

@@ -40363,7 +40363,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" Details")]
+                [_vm._v(" details")]
               )
             ])
           ])
